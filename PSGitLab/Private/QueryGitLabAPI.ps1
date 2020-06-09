@@ -59,8 +59,7 @@ Function QueryGitLabAPI {
 
         if ($webContent.rawcontentlength -eq 0 ) { break; }
 
-        $bytes = $webContent.Content.ToCharArray() | Foreach-Object{ [byte]$_ }
-        $Results = [Text.Encoding]::UTF8.GetString($bytes) | ConvertFrom-Json
+        $Results = $webContent.Content | ConvertFrom-Json
         for ($i=1; $i -lt $totalPages; $i++) {
             $newRequest = $Request.PSObject.Copy()
             if ( $newRequest['URI'] -match '\?') {
